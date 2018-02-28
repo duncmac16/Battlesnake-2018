@@ -23,7 +23,7 @@ def start():
         name = "Dunc",
         head_url = "http://2.bp.blogspot.com/_qAms05FxvSw/TRy3kgEBjWI/AAAAAAAAAYY/xdK5e6w_P4s/s1600/The%2BRoom%2Bwe%2Bare%2Bexpecting%2521%2B.jpg",
         # The below fields are NOT REQUIRED
-        taunt = "Tommy Wiseau is a good actor",
+        taunt = "The Room isn't even that bad",
         head_type = "sand-worm",
         tail_type = "pixel",
         secondary_color = "#500000",
@@ -50,7 +50,12 @@ def move():
     grid_options = controller.grid_setup(food, width, height, snakes)
     for snake in snakes:
         if you == snake.get('id'):
-            my_snake_coords = snakes.get('coords')
+            mySnake = snake
+            break
+
+    my_snake_coords = mySnake.get('coords')
+    my_snake_head_x = my_snake_coords[0][0]
+    my_snake_head_y = my_snake_coords[0][1]
 
     # Search for the coordinates of the closest food pellet
     target_food = controller.get_closest_food(grid_options[1], my_snake_head_x, my_snake_head_y)
