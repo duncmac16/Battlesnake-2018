@@ -19,14 +19,14 @@ app = Flask(__name__) #App is now an instance of Flask.
 @app.route("/start", methods=["POST"])
 def start():
     return jsonify(
-        color = "#800000",
-        name = "Tommy Wiseau",
+        color = "#300000",
+        name = "Dummie",
         head_url = "http://2.bp.blogspot.com/_qAms05FxvSw/TRy3kgEBjWI/AAAAAAAAAYY/xdK5e6w_P4s/s1600/The%2BRoom%2Bwe%2Bare%2Bexpecting%2521%2B.jpg",
         # The below fields are NOT REQUIRED
         taunt = "Why, Lisa, why, WHY?!",
         head_type = "sand-worm",
         tail_type = "pixel",
-        secondary_color = "#000000",
+        secondary_color = "#400000",
     )
 
 @app.route("/move", methods=["POST"])
