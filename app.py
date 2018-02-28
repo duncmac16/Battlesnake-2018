@@ -19,14 +19,14 @@ app = Flask(__name__) #App is now an instance of Flask.
 @app.route("/start", methods=["POST"])
 def start():
     return jsonify(
-        color = "#300000",
-        name = "Dummie",
+        color = "#900000",
+        name = "Dunc",
         head_url = "http://2.bp.blogspot.com/_qAms05FxvSw/TRy3kgEBjWI/AAAAAAAAAYY/xdK5e6w_P4s/s1600/The%2BRoom%2Bwe%2Bare%2Bexpecting%2521%2B.jpg",
         # The below fields are NOT REQUIRED
-        taunt = "Why, Lisa, why, WHY?!",
+        taunt = "Tommy Wiseau is a good actor",
         head_type = "sand-worm",
         tail_type = "pixel",
-        secondary_color = "#400000",
+        secondary_color = "#500000",
     )
 
 @app.route("/move", methods=["POST"])
@@ -46,10 +46,11 @@ def move():
 
     #NOTE grid_options[0] = general_grid
     #NOTE grid_options[1] = food_grid
+    mySnake = []
     grid_options = controller.grid_setup(food, width, height, snakes)
-    my_snake_coords = snakes[0].get('coords')
-    my_snake_head_x = my_snake_coords[0][0]
-    my_snake_head_y = my_snake_coords[0][1]
+    for snake in snakes:
+        if you == snake.get('id'):
+            my_snake_coords = snakes.get('coords')
 
     # Search for the coordinates of the closest food pellet
     target_food = controller.get_closest_food(grid_options[1], my_snake_head_x, my_snake_head_y)
