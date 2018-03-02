@@ -31,12 +31,12 @@ def start():
     return jsonify(
         color = "#800000",
         secondary_color = "#000000",
-        name = "Tommy Wiseau",
-        head_url = "http://2.bp.blogspot.com/_qAms05FxvSw/TRy3kgEBjWI/AAAAAAAAAYY/xdK5e6w_P4s/s1600/The%2BRoom%2Bwe%2Bare%2Bexpecting%2521%2B.jpg",
+        name = "Lisa",
+        head_url = "https://schlockwave.files.wordpress.com/2013/01/theroomlisa.jpg",
         # The below fields are NOT REQUIRED
-        taunt = "Why, Lisa, why, WHY?!",
-        head_type = "sand-worm",
-        tail_type = "pixel",
+        taunt = "The Room is actually pretty good",
+        head_type = "bendr",
+        tail_type = "round-bum",
 
     )
 
@@ -76,7 +76,7 @@ def move():
 
 @app.route("/end", methods=["POST"])
 def end():
-    return "OK", 200
+    return 'true', 200
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
