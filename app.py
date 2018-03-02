@@ -8,7 +8,7 @@
 # March 2018
 
 import os, random, math, controller
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, status
 from datetime import datetime
 from timeit import default_timer as timer
 
@@ -76,7 +76,7 @@ def move():
 
 @app.route("/end", methods=["POST"])
 def end():
-    return 'OK', 200
+    return 'OK', status.HTTP_200_OK
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
