@@ -74,9 +74,9 @@ def move():
     move = next_move #NOTE This is what controls where the snake goes!
     )
 
-@app.route("/end", methods=["POST"])
-def end():
-    return True, 200
+#@app.route("/end", methods=["POST"])
+#def end():
+#    return 'true', 200
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
