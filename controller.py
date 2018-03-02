@@ -30,8 +30,6 @@ def grid_setup(food, width, height, snakes):
     grid_options.append(generic_grid)
     grid_options.append(food_grid)
 
-    print(grid_options)
-
     '''print('')
     for y in range(0, width):
         print('')
