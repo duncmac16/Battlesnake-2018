@@ -14,6 +14,7 @@ def grid_setup(food, width, height, snakes):
     #Food locations
     for [x, y] in food:
         food_grid.append([x,y])
+        break
 
     #Snake locations:
     for snake in snakes:
