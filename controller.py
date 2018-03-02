@@ -9,18 +9,27 @@ def grid_setup(food, width, height, snakes):
         for x in range(0, width):
             new_list.append(1)
         generic_grid.append(new_list)
+        print(width)
+        print(height)
 
     food_grid = []
     #Food locations
-    print(food.data)
-    for [x, y] in food:
-        food_grid.append([x,y])
+    for point in food:
+        locationX = point.get("x")
+        locationY = point.get("y")
+        food_grid.append([locationX, locationY])
 
     #Snake locations:
     for snake in snakes:
-        current_snake_coordinates = snake.get('coords')
-        for [x, y] in current_snake_coordinates:
-            generic_grid[y][x] = 0
+        body = snake.get("body").get("data")
+        for point in body:
+            pointX = point.get("x")
+            pointY = point.get("y")
+            print('x')
+            print(pointX)
+            print('y')
+            print(pointY)
+            generic_grid[pointY][pointX] = 0
 
     grid_options = []
 
@@ -89,9 +98,9 @@ def get_move(grid_options, target, head_x, head_y, height, width):
     path = astar.compute(grid_options[0], (head_x, head_y), target, width, height)
     if path:
         path = list(path)
-    #else:
+    else:
         ##return get_neighbors((head_x, head_y), grid_options[0], height, width)[0]
-        #return 'up' #TODO what do we do if there's no path?
+        return 'up' #TODO what do we do if there's no path?
 
     desired_next_position = path[1] #NOTE the 0'th coordinate is the current position
     return get_move_letter((head_x, head_y), desired_next_position)
