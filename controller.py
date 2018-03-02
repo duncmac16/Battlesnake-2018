@@ -1,4 +1,4 @@
-import astarobject, math, sys, random
+import astar, math, sys, random
 
 def grid_setup(food, width, height, snakes):
 
@@ -12,8 +12,7 @@ def grid_setup(food, width, height, snakes):
 
     food_grid = []
     #Food locations
-    for x and y in food:
-        print([x, y])
+    for [x, y] in food:
         food_grid.append([x,y])
 
     #Snake locations:
@@ -86,11 +85,11 @@ def get_move_letter(start, end):
 
 
 def get_move(grid_options, target, head_x, head_y, height, width):
-    path = astarobject.compute(grid_options[0], (head_x, head_y), target, width, height)
+    path = astar.compute(grid_options[0], (head_x, head_y), target, width, height)
     if path:
         path = list(path)
-    else:
-        return random.choice(get_neighbors((head_x, head_y), grid_options[0], height, width))
+    #else:
+        ##return get_neighbors((head_x, head_y), grid_options[0], height, width)[0]
         #return 'up' #TODO what do we do if there's no path?
 
     desired_next_position = path[1] #NOTE the 0'th coordinate is the current position
