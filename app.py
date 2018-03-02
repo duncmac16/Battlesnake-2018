@@ -8,7 +8,8 @@
 # March 2018
 
 import os, random, math, controller
-from flask import Flask, request, jsonify, status
+from flask import Flask, request, jsonify
+from flask.ext.api import status
 from datetime import datetime
 from timeit import default_timer as timer
 
