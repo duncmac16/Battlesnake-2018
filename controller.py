@@ -12,7 +12,9 @@ def grid_setup(food, width, height, snakes):
 
     food_grid = []
     #Food locations
-    food_grid.append([food.x,food.y])
+    for [x, y] in food:
+        print([x, y])
+        food_grid.append([x,y])
 
     #Snake locations:
     for snake in snakes:
