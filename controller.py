@@ -20,7 +20,7 @@ def grid_setup(food, width, height, snakes):
     #Snake locations:
     for snake in snakes:
         body = snake.get("body").get("data")
-        if body != snake[0]:
+        if not snake[0]:
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
