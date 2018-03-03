@@ -1,6 +1,6 @@
 import astar, math, sys, random
 
-def grid_setup(food, width, height, snakes, mySnakeID):
+def grid_setup(food, width, height, snakes, mySnake, mySnakeID):
 
     generic_grid = []
     #General grid setup
@@ -46,18 +46,19 @@ def grid_setup(food, width, height, snakes, mySnakeID):
             #print("new point Y = {}, new point X = {} grid x length = {}, grid y length = {}".format(pointY, pointX,len(generic_grid[0]), len(generic_grid)))
             generic_grid[pointY][pointX] = 0
 
-
     grid_options = []
 
     grid_options.append(generic_grid)
     grid_options.append(food_grid)
 
     print('')
-    for y in range(0, height):
+    for y in range(0, width):
         print('')
-        for x in range(0, width):
-            if generic_grid[y][x] == 0:
+        for x in range(0, height):
+            if generic_grid[y][x] == 0 and (x, y) not in food_grid:
                 print('X', end='')
+            elif (x, y) in food_grid:
+                print('F', end = '')
             else:
                 print('0', end='')
 
@@ -104,13 +105,50 @@ def get_move_letter(start, end):
         return 'up'
 
 
-def get_move(grid_options, target, head_x, head_y, height, width):
-    path = astar.compute(grid_options[0], (head_x, head_y), target, width, height)
+def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
+    a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
+
+    myTail = (mySnake[-1].get("x"), mySnake[-1].get("y"))
+    myLength = len(mySnake)
+    #find tail
+    #NOTE FIND TAIL MODE
+    if myLength > 3 and myHealth > 85:
+        grid_options[0][myTail[1]][myTail[0]] = 1
+        path = a_star_object.astar((head_x, head_y), myTail)
+        grid_options[0][myTail[1]][myTail[0]] = 0
+        if path:
+            path = list(path)
+        else:
+            return 'right'
+        return get_move_letter((head_x, head_y), path[1])
+    #NOTE get food mode
+    else:
+        current_minimum = float('inf')
+        current_path = None
+        for food in grid_options[1]:
+            path = a_star_object.astar((head_x, head_y), tuple(food))
+            if path:
+                path = list(path)
+                if len(path) < current_minimum:
+                    current_minimum = len(path)
+                    current_path = path
+                    
+        if current_path:
+            return get_move_letter((head_x, head_y), current_path[1])
+        else:
+            return 'right'
+            #neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
+            #for neighbour in neighbourList:
+                #if grid_options[0][neighbour[0], neighbour[1]] != 0:
+                    #return get_move_letter((head_x, head_y), neighbour)
+
+    '''tailx = mySnake[-1].get("x")
+    taily = mySnake[-1].get("y")
+    print('')
+    print("X coordinate:{}, Y coordinate:{}".format(tailx, taily))
+    path = astar.compute(grid_options[0], (head_x, head_y), (tailx, taily), width, height)
     if path:
         path = list(path)
     else:
-        options = get_neighbors((head_x, head_y), grid_options[0], height, width)
-        for node in options:
-            if grid_options[node[0], node[1]] != 0:
-                return get_move_letter((head_x, head_y), node)
-    return get_move_letter((head_x, head_y), path[1])
+        return 'left'
+    return get_move_letter((head_x, head_y), path[1])'''
