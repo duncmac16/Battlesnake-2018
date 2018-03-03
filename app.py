@@ -12,8 +12,6 @@ from flask import Flask, request, jsonify
 from datetime import datetime
 from timeit import default_timer as timer
 
-game_id = 0
-
 app = Flask(__name__) #App is now an instance of Flask.
 
 @app.route("/start", methods=["POST"])
@@ -27,7 +25,7 @@ def start():
     #width = data.get("width")
     #NOTE Trying to get height and width here was giving me problems!
 
-    return jsonify( color = "#800000", secondary_color = "#000000", name = "Lisa", taunt = "The room isnt even that bad", head_type = "sand-worm", tail_type = "round-bum", head_url = "http://2.bp.blogspot.com/_qAms05FxvSw/TRy3kgEBjWI/AAAAAAAAAYY/xdK5e6w_P4s/s1600/The%2BRoom%2Bwe%2Bare%2Bexpecting%2521%2B.jpg")
+    return jsonify( color = "#ffe14e", secondary_color = "#000000", name = "Tommy Wiseau", taunt = "Why, Lisa, why, WHY?!", head_type = "sand-worm", tail_type = "pixel", head_url = "http://2.bp.blogspot.com/_qAms05FxvSw/TRy3kgEBjWI/AAAAAAAAAYY/xdK5e6w_P4s/s1600/The%2BRoom%2Bwe%2Bare%2Bexpecting%2521%2B.jpg")
 
 @app.route("/move", methods=["POST"])
 def move():
@@ -38,14 +36,15 @@ def move():
     food = data.get("food").get("data") #Array
     snakes = data.get("snakes").get("data") #Array
     you = data.get("you")
-    myHealth = you.get("body").get("health")
+    myHealth = you.get("health")
     myLength = you.get("body").get("length")
     mySnake = you.get("body").get("data")
-    mySnakeID = you.get("id")
 
 
     if debug:
         start = timer() #NOTE THIS IS OUR TIMER START POINT
+        print('')
+        print("Health:{}".format(myHealth))
         print('')
         print("Game height:{}, Game width:{}".format(height,width))
         print('')
@@ -53,7 +52,7 @@ def move():
 
 
     #NOTE grid_options[0] = general_grid // grid_options[1] = food_grid
-    grid_options = controller.grid_setup(food, width, height, snakes, mySnakeID)
+    grid_options = controller.grid_setup(food, width, height, snakes, mySnake, you.get("id"))
 
     #NOTE Now, set our coordinates!
     mySnakeX = mySnake[0].get("x")
@@ -63,7 +62,7 @@ def move():
     target_food = controller.get_closest_food(grid_options[1], mySnakeX, mySnakeY)
 
     #NOTE Get the next move based on the pellet
-    next_move = controller.get_move(grid_options, target_food, mySnakeX, mySnakeY, height, width)
+    next_move = controller.get_move(grid_options, target_food, mySnakeX, mySnakeY, height, width, mySnake, myHealth)
 
     if debug:
         #NOTE This is the end reference point of the timer. Just to get a good idea of what the runtime of the program is in total

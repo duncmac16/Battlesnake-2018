@@ -25,13 +25,21 @@ def grid_setup(food, width, height, snakes, mySnakeID):
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
-            if headY > 0 and headY < height - 1 and headX > 0 and headX < width - 1:
-                print(headX)
-                print(headY)
-                generic_grid[headY - 1][headX] = 0
-                generic_grid[headY + 1][headX] = 0
-                generic_grid[headY][headX - 1] = 0
-                generic_grid[headY][headX + 1] = 0
+
+            top = headY - 1
+            bottom = headY + 1
+            left = headX - 1
+            right = headX + 1
+
+            if top > 0:
+                generic_grid[top][headX] = 0
+            if bottom < height:
+                generic_grid[bottom][headX] = 0
+            if left > 0:
+                generic_grid[headY][left] = 0
+            if right < width:
+                generic_grid[headY][right] = 0
+
         for point in body:
             pointX = point.get("x")
             pointY = point.get("y")
@@ -100,7 +108,11 @@ def get_move(grid_options, target, head_x, head_y, height, width):
     path = astar.compute(grid_options[0], (head_x, head_y), target, width, height)
     if path:
         path = list(path)
+    elif:
+        options = get_neighbors((head_x, head_y), grid_options[0], height, width)
+        for node in options:
+            if grid_options[node[0], node[1]] != 0:
+                return get_move_letter((head_x, head_y), node)
     else:
-        ##return get_neighbors((head_x, head_y), grid_options[0], height, width)[0]
         return 'left' #TODO what do we do if there's no path?
     return get_move_letter((head_x, head_y), path[1])
