@@ -107,7 +107,7 @@ def get_move_letter(start, end):
 
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
-
+    print(path)
     myTail = (mySnake[-1].get("x"), mySnake[-1].get("y"))
     myLength = len(mySnake)
     #find tail
@@ -132,15 +132,16 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
                 if len(path) < current_minimum:
                     current_minimum = len(path)
                     current_path = path
-                    
+
         if current_path:
             return get_move_letter((head_x, head_y), current_path[1])
         else:
-            return 'right'
-            #neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
+            neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
+            print(neighbourList)
             #for neighbour in neighbourList:
                 #if grid_options[0][neighbour[0], neighbour[1]] != 0:
                     #return get_move_letter((head_x, head_y), neighbour)
+            return 'right'
 
     '''tailx = mySnake[-1].get("x")
     taily = mySnake[-1].get("y")
