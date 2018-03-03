@@ -51,7 +51,7 @@ def grid_setup(food, width, height, snakes, mySnake, mySnakeID):
     grid_options.append(generic_grid)
     grid_options.append(food_grid)
 
-    print('')
+    '''print('')
     for y in range(0, width - 1):
         print('')
         for x in range(0, height - 1):
@@ -61,6 +61,7 @@ def grid_setup(food, width, height, snakes, mySnake, mySnakeID):
                 print('F', end = '')
             else:
                 print('0', end='')
+    '''
 
     return grid_options
 
