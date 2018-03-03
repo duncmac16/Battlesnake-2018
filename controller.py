@@ -107,13 +107,13 @@ def get_move_letter(start, end):
 
 def avoidTail(head,tail):
     (headx,heady) = head
-    if ((headx-1),heady) == tail:
+    if (headx - 1, heady) == tail:
         return False
-    if ((headx),heady -1) == tail:
+    if (headx, heady - 1) == tail:
         return False
-    if ((headx+1),heady) == tail:
+    if (headx + 1, heady) == tail:
         return False
-    if ((headx),head+1) == tail:
+    if (headx, head + 1) == tail:
         return False
 
     return True
