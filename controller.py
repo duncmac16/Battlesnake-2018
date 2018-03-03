@@ -107,16 +107,16 @@ def get_move_letter(start, end):
 
 def avoidTail(head,tail):
     (headx,heady) = head
-    if ((headx-1),heady) == tail
-        return false
-    if ((headx),heady -1) == tail
-        return false
-    if ((headx+1),heady) == tail
-        return false
-    if ((headx),head+1) == tail
-        return false
+    if ((headx-1),heady) == tail:
+        return False
+    if ((headx),heady -1) == tail:
+        return False
+    if ((headx+1),heady) == tail:
+        return False
+    if ((headx),head+1) == tail:
+        return False
 
-    return true
+    return True
 
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
