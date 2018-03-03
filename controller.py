@@ -1,6 +1,6 @@
 import astar, math, sys, random
 
-def grid_setup(food, width, height, snakes, mySnake):
+def grid_setup(food, width, height, snakes, mySnakeID):
 
     generic_grid = []
     #General grid setup
@@ -21,7 +21,8 @@ def grid_setup(food, width, height, snakes, mySnake):
     #Snake locations:
     for snake in snakes:
         body = snake.get("body").get("data")
-        if body not == mySnake:
+        snakeID = snake.get("ID").get("data")
+        if body not == mySnakeID:
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
