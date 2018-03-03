@@ -109,14 +109,14 @@ def avoidTail(head,tail):
     (headx,heady) = head
     if (headx - 1, heady) == tail:
         return False
-    if (headx, heady - 1) == tail:
+    elif (headx, heady - 1) == tail:
         return False
-    if (headx + 1, heady) == tail:
+    elif (headx + 1, heady) == tail:
         return False
-    if (headx, heady + 1) == tail:
+    elif (headx, heady + 1) == tail:
         return False
-
-    return True
+    else:
+        return True
 
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
