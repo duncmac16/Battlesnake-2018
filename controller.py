@@ -22,7 +22,7 @@ def grid_setup(food, width, height, snakes, mySnake):
     for snake in snakes:
         body = snake.get("body").get("data")
         print(body)
-        if body is not mySnake:
+        if body not == mySnake:
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
