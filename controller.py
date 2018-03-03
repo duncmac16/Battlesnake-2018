@@ -113,7 +113,7 @@ def avoidTail(head,tail):
         return False
     if (headx + 1, heady) == tail:
         return False
-    if (headx, head + 1) == tail:
+    if (headx, heady + 1) == tail:
         return False
 
     return True
