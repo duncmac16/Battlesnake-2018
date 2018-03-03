@@ -108,11 +108,9 @@ def get_move(grid_options, target, head_x, head_y, height, width):
     path = astar.compute(grid_options[0], (head_x, head_y), target, width, height)
     if path:
         path = list(path)
-    elif:
+    else:
         options = get_neighbors((head_x, head_y), grid_options[0], height, width)
         for node in options:
             if grid_options[node[0], node[1]] != 0:
                 return get_move_letter((head_x, head_y), node)
-    else:
-        return 'left' #TODO what do we do if there's no path?
     return get_move_letter((head_x, head_y), path[1])
