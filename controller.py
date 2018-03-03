@@ -105,6 +105,18 @@ def get_move_letter(start, end):
     elif deltaY < 0:
         return 'up'
 
+def avoidTail(head,tail):
+    (headx,heady) = head
+    if ((headx-1),heady) =tail
+        return false
+    if ((headx),heady -1) =tail
+        return false
+    if ((headx+1),heady) =tail
+        return false
+    if ((headx),head+1) =tail
+        return false
+
+    return true
 
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
@@ -112,7 +124,7 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
     myLength = len(mySnake)
     #find tail
     #NOTE FIND TAIL MODE
-    if myLength > 3 and myHealth > 85:
+    if myLength > 3 and myHealth > 65 and avoidTail((head_x,head_y),myTail):
         grid_options[0][myTail[1]][myTail[0]] = 1
         path = a_star_object.astar((head_x, head_y), myTail)
         grid_options[0][myTail[1]][myTail[0]] = 0
