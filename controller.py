@@ -22,7 +22,6 @@ def grid_setup(food, width, height, snakes, mySnakeID):
         body = snake.get("body").get("data")
         snakeID = snake.get("id")
         if body != mySnakeID:
-            print("inside if")
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
@@ -42,14 +41,14 @@ def grid_setup(food, width, height, snakes, mySnakeID):
     grid_options.append(generic_grid)
     grid_options.append(food_grid)
 
-    '''print('')
+    print('')
     for y in range(0, width):
         print('')
         for x in range(0, height):
             if generic_grid[y][x] == 0:
                 print('X', end='')
             else:
-                print('0', end='')'''
+                print('0', end='')
 
     return grid_options
 
