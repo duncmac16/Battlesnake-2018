@@ -25,10 +25,11 @@ def grid_setup(food, width, height, snakes, mySnakeID):
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
-            generic_grid[headY - 1][headX] = 0
-            generic_grid[headY + 1][headX] = 0
-            generic_grid[headY][headX - 1] = 0
-            generic_grid[headY][headX + 1] = 0
+            if headY > 0 and headY < height and headX > 0 and headX < width:
+                generic_grid[headY - 1][headX] = 0
+                generic_grid[headY + 1][headX] = 0
+                generic_grid[headY][headX - 1] = 0
+                generic_grid[headY][headX + 1] = 0
         for point in body:
             pointX = point.get("x")
             pointY = point.get("y")
