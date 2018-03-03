@@ -17,12 +17,11 @@ def grid_setup(food, width, height, snakes, mySnakeID):
         locationY = point.get("y")
         food_grid.append([locationX, locationY])
 
-    print(mySnake)
     #Snake locations:
     for snake in snakes:
         body = snake.get("body").get("data")
-        snakeID = snake.get("ID").get("data")
-        if body not == mySnakeID:
+        snakeID = snake.get("id")
+        if body != mySnakeID:
             head = body[0]
             headX = head.get("x")
             headY = head.get("y")
