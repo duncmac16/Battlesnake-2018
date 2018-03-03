@@ -23,9 +23,7 @@ def grid_setup(food, width, height, snakes):
         for point in body:
             pointX = point.get("x")
             pointY = point.get("y")
-            print(pointX)
-            print(pointY)
-            print(generic_grid[pointY][pointX])
+            #print("new point Y = {}, new point X = {} grid x length = {}, grid y length = {}".format(pointY, pointX,len(generic_grid[0]), len(generic_grid)))
             generic_grid[pointY][pointX] = 0
 
     grid_options = []
@@ -37,7 +35,7 @@ def grid_setup(food, width, height, snakes):
     for y in range(0, width):
         print('')
         for x in range(0, height):
-            if snake_grid[y][x] == 0:
+            if generic_grid[y][x] == 0:
                 print('X', end='')
             else:
                 print('0', end='')'''
@@ -75,12 +73,6 @@ def get_move_letter(start, end):
     nextY = end[1]
     deltaX = nextX - currX
     deltaY = nextY - currY
-
-    '''print('dx')
-    print(deltaX)
-    print('dy')
-    print(deltaY)'''
-
     if deltaX > 0:
         return 'right'
     elif deltaY > 0:
@@ -97,7 +89,5 @@ def get_move(grid_options, target, head_x, head_y, height, width):
         path = list(path)
     else:
         ##return get_neighbors((head_x, head_y), grid_options[0], height, width)[0]
-        return 'up' #TODO what do we do if there's no path?
-
-    desired_next_position = path[1] #NOTE the 0'th coordinate is the current position
-    return get_move_letter((head_x, head_y), desired_next_position)
+        return 'left' #TODO what do we do if there's no path?
+    return get_move_letter((head_x, head_y), path[1])
