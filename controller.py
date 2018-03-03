@@ -44,9 +44,9 @@ def grid_setup(food, width, height, snakes, mySnakeID):
     grid_options.append(food_grid)
 
     print('')
-    for y in range(0, width):
+    for y in range(0, height):
         print('')
-        for x in range(0, height):
+        for x in range(0, width):
             if generic_grid[y][x] == 0:
                 print('X', end='')
             else:
