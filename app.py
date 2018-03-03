@@ -41,6 +41,7 @@ def move():
     myHealth = you.get("body").get("health")
     myLength = you.get("body").get("length")
     mySnake = you.get("body").get("data")
+    mySnakeID = you.get("id")
 
 
     if debug:
@@ -52,7 +53,7 @@ def move():
 
 
     #NOTE grid_options[0] = general_grid // grid_options[1] = food_grid
-    grid_options = controller.grid_setup(food, width, height, snakes, mySnake)
+    grid_options = controller.grid_setup(food, width, height, snakes, mySnakeID)
 
     #NOTE Now, set our coordinates!
     mySnakeX = mySnake[0].get("x")
