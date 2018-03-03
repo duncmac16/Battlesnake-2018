@@ -20,14 +20,20 @@ def grid_setup(food, width, height, snakes):
     #Snake locations:
     for snake in snakes:
         body = snake.get("body").get("data")
+        head = body[0]
+        headX = head.get("x")
+        headY = head.get("y")
+        generic_grid[headY - 1] = 0
+        generic_grid[headY + 1] = 0
+        generic_grid[headX - 1] = 0
+        generic_grid[headX + 1] = 0
         for point in body:
             pointX = point.get("x")
             pointY = point.get("y")
             #print("new point Y = {}, new point X = {} grid x length = {}, grid y length = {}".format(pointY, pointX,len(generic_grid[0]), len(generic_grid)))
             generic_grid[pointY][pointX] = 0
 
-    print(body)
-    
+
     grid_options = []
 
     grid_options.append(generic_grid)
