@@ -26,6 +26,8 @@ def grid_setup(food, width, height, snakes):
             #print("new point Y = {}, new point X = {} grid x length = {}, grid y length = {}".format(pointY, pointX,len(generic_grid[0]), len(generic_grid)))
             generic_grid[pointY][pointX] = 0
 
+    print(body)
+    
     grid_options = []
 
     grid_options.append(generic_grid)
