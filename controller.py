@@ -37,6 +37,7 @@ def grid_setup(food, width, height, snakes, mySnake):
 
 
     grid_options = []
+    print(generic_grid)
 
     grid_options.append(generic_grid)
     grid_options.append(food_grid)
