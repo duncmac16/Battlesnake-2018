@@ -52,16 +52,15 @@ def grid_setup(food, width, height, snakes, mySnake, mySnakeID):
     grid_options.append(food_grid)
 
     '''print('')
-    for y in range(0, width - 1):
+    for y in range(0, width):
         print('')
-        for x in range(0, height - 1):
+        for x in range(0, height):
             if generic_grid[y][x] == 0 and (x, y) not in food_grid:
                 print('X', end='')
             elif (x, y) in food_grid:
                 print('F', end = '')
             else:
-                print('0', end='')
-    '''
+                print('0', end='')'''
 
     return grid_options
 
@@ -105,59 +104,63 @@ def get_move_letter(start, end):
     elif deltaY < 0:
         return 'up'
 
-def avoidTail(head,tail):
-    (headx,heady) = head
-    if (headx - 1, heady) == tail:
-        return False
-    elif (headx, heady - 1) == tail:
-        return False
-    elif (headx + 1, heady) == tail:
-        return False
-    elif (headx, heady + 1) == tail:
-        return False
-    else:
-        return True
+
+def move_to_food(a_star_object, food_list, head_x, head_y):
+    current_minimum = float('inf')
+    current_path = None
+    for food in food_list:
+        path = a_star_object.astar((head_x, head_y), tuple(food))
+        if path:
+            path = list(path)
+            if len(path) < current_minimum:
+                current_minimum = len(path)
+                current_path = path
+    if current_path:
+        return get_move_letter((head_x, head_y), list(current_path)[1])
+    return None
+
+def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow):
+    myTail = (mySnake[-1].get("x"), mySnake[-1].get("y"))
+    grid_options[0][myTail[1]][myTail[0]] = 1
+    path = a_star_object.astar((head_x, head_y), myTail)
+    grid_options[0][myTail[1]][myTail[0]] = 0
+    if path:
+        if not isGonnaGrow:
+            return get_move_letter((head_x, head_y), list(path)[1])
+        else:
+            neighbours = get_neighbors(myTail)
+            for neighbour in neighbours:
+                path = a_star_object.astar((head_x, head_y), neighbour)
+                if path:
+                    return get_move_letter((head_x, head_y), list(path)[1])
+
+
+    return None
 
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
-    myTail = (mySnake[-1].get("x"), mySnake[-1].get("y"))
+
     myLength = len(mySnake)
     #find tail
     #NOTE FIND TAIL MODE
-    if myLength > 3 and myHealth > 65 and avoidTail((head_x,head_y),myTail):
-        grid_options[0][myTail[1]][myTail[0]] = 1
-        path = a_star_object.astar((head_x, head_y), myTail)
-        grid_options[0][myTail[1]][myTail[0]] = 0
-        if path:
-            path = list(path)
-            move = get_move_letter((head_x, head_y), path[1])
-        else:
-            move = 'right'
-
-    #NOTE get food mode
+    if myLength > 3 and myHealth > 65: #85
+        gonnaGrow = False
+        if myHealth == 100:
+            gonnaGrow = True
+        move = chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, gonnaGrow)
+    #NOTE GET FOOD
     else:
-        current_minimum = float('inf')
-        current_path = None
-        for food in grid_options[1]:
-            path = a_star_object.astar((head_x, head_y), tuple(food))
-            if path:
-                path = list(path)
-                if len(path) < current_minimum:
-                    current_minimum = len(path)
-                    current_path = path
+        move = move_to_food(a_star_object,grid_options[1], head_x, head_y)
 
-        if current_path:
-            move = get_move_letter((head_x, head_y), current_path[1])
-        else:
-            neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
-            print(neighbourList)
-            for neighbour in neighbourList:
-                if grid_options[0][neighbour[0], neighbour[1]] != 0:
-                    move = get_move_letter((head_x, head_y), neighbour)
-                    print(move)
-                    return move
-            move = 'right'
-    return move
+    if move:
+        return move
+    else:
+        return 'right'
+
+        #neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
+        #for neighbour in neighbourList:
+            #if grid_options[0][neighbour[0], neighbour[1]] != 0:
+                #return get_move_letter((head_x, head_y), neighbour)
 
     '''tailx = mySnake[-1].get("x")
     taily = mySnake[-1].get("y")
