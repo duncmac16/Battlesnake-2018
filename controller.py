@@ -137,6 +137,7 @@ def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow
 
     return None
 
+
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
 
@@ -167,7 +168,7 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
         #for neighbour in neighbourList:
             #if grid_options[0][neighbour[0], neighbour[1]] != 0:
                 #return get_move_letter((head_x, head_y), neighbour)
-        return 'right'
+        return get_move_letter(mySnake[1] ,(head_x, head_y))
 
     '''tailx = mySnake[-1].get("x")
     taily = mySnake[-1].get("y")
