@@ -128,7 +128,7 @@ def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow
         if not isGonnaGrow:
             return get_move_letter((head_x, head_y), list(path)[1])
         else:
-            neighbours = get_neighbors(myTail)
+            neighbours = [(head_x - 1, head_y), (head_x + 1, head_y), (head_x, head_y - 1), (head_x, head_y + 1)]
             for neighbour in neighbours:
                 path = a_star_object.astar((head_x, head_y), neighbour)
                 if path:
