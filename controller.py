@@ -165,7 +165,7 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
         #for neighbour in neighbourList:
             #if grid_options[0][neighbour[0], neighbour[1]] != 0:
                 #return get_move_letter((head_x, head_y), neighbour)
-        return get_move_letter(mySnake[1] ,(head_x, head_y))
+        return get_move_letter((head_x, head_y), mySnake[1])
 
     '''tailx = mySnake[-1].get("x")
     taily = mySnake[-1].get("y")
