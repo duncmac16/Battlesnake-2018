@@ -130,9 +130,10 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
         grid_options[0][myTail[1]][myTail[0]] = 0
         if path:
             path = list(path)
+            move = get_move_letter((head_x, head_y), path[1])
         else:
-            return 'right'
-        return get_move_letter((head_x, head_y), path[1])
+            move = 'right'
+
     #NOTE get food mode
     else:
         current_minimum = float('inf')
@@ -146,7 +147,7 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
                     current_path = path
 
         if current_path:
-            return get_move_letter((head_x, head_y), current_path[1])
+            move = get_move_letter((head_x, head_y), current_path[1])
         else:
             neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
             print(neighbourList)
@@ -155,7 +156,8 @@ def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHea
                     move = get_move_letter((head_x, head_y), neighbour)
                     print(move)
                     return move
-            return 'right'
+            move = 'right'
+    return move
 
     '''tailx = mySnake[-1].get("x")
     taily = mySnake[-1].get("y")
