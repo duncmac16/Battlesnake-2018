@@ -55,10 +55,8 @@ def grid_setup(food, width, height, snakes, mySnake, mySnakeID):
     for y in range(0, width):
         print('')
         for x in range(0, height):
-            if generic_grid[y][x] == 0 and (x, y) not in food_grid:
+            if generic_grid[y][x] == 0 :
                 print('X', end='')
-            elif (x, y) in food_grid:
-                print('F', end = '')
             else:
                 print('0', end='')'''
 
@@ -119,7 +117,7 @@ def move_to_food(a_star_object, food_list, head_x, head_y):
         return get_move_letter((head_x, head_y), list(current_path)[1])
     return None
 
-def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow):
+def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow, height, width):
     myTail = (mySnake[-1].get("x"), mySnake[-1].get("y"))
     grid_options[0][myTail[1]][myTail[0]] = 1
     path = a_star_object.astar((head_x, head_y), myTail)
@@ -128,7 +126,7 @@ def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow
         if not isGonnaGrow:
             return get_move_letter((head_x, head_y), list(path)[1])
         else:
-            neighbours = [(head_x - 1, head_y), (head_x + 1, head_y), (head_x, head_y - 1), (head_x, head_y + 1)]
+            neighbours = get_neighbors(myTail, grid_options[0], height, width)
             for neighbour in neighbours:
                 path = a_star_object.astar((head_x, head_y), neighbour)
                 if path:
@@ -137,43 +135,25 @@ def chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, isGonnaGrow
 
     return None
 
-
 def get_move(grid_options, target, head_x, head_y, height, width, mySnake, myHealth):
     a_star_object = astar.AStarAlgorithm(grid_options[0], width, height)
 
     myLength = len(mySnake)
-    #find tail
+    move = move_to_food(a_star_object, grid_options[1], head_x, head_y)
+
     #NOTE FIND TAIL MODE
-    if myLength > 3 and myHealth > 65: #85
+    if myLength > 3 and myHealth > 75 or move == None: #85
         gonnaGrow = False
         if myHealth == 100:
             gonnaGrow = True
-        move = chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, gonnaGrow)
-    #NOTE GET FOOD
-    else:
-        move = move_to_food(a_star_object,grid_options[1], head_x, head_y)
+        move = chase_tail(a_star_object, grid_options, mySnake, head_x, head_y, gonnaGrow, height, width)
+
 
     if move:
         return move
     else:
-        neighbours = [(head_x - 1, head_y), (head_x + 1, head_y), (head_x, head_y - 1), (head_x, head_y + 1)]
-        for neighbour in neighbours:
-            if neighbour[1] > height and neighbour[1] < 0 and neighbour[0] > width and neighbour[0] < 0:
-                if grid_options[neighbour[1]][neighbour[0]] != 0:
-                    return get_move_letter((head_x, head_y), neighbour)
-        #neighbourList = get_neighbors((head_x, head_y), grid_options[0], height, width)
-        #for neighbour in neighbourList:
-            #if grid_options[0][neighbour[0], neighbour[1]] != 0:
-                #return get_move_letter((head_x, head_y), neighbour)
-        return get_move_letter((head_x, head_y), mySnake[1])
-
-    '''tailx = mySnake[-1].get("x")
-    taily = mySnake[-1].get("y")
-    print('')
-    print("X coordinate:{}, Y coordinate:{}".format(tailx, taily))
-    path = astar.compute(grid_options[0], (head_x, head_y), (tailx, taily), width, height)
-    if path:
-        path = list(path)
-    else:
-        return 'left'
-    return get_move_letter((head_x, head_y), path[1])'''
+        neighbours = get_neighbors((head_x, head_y), grid_options[0], height, width)
+        if neighbours:
+            return get_move_letter((head_x, head_y), neighbours[0])
+        else:
+            return 'left'
